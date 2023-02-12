@@ -8,11 +8,12 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "tsc -p .",
+    "build": "yarn clean && tsc -p .",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --check \"src/**/*.ts\"",
     "format": "prettier --write \"src/**/*.ts\"",
-    "test": "yarn lint && yarn prettier"
+    "test": "yarn lint && yarn prettier",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
     "@types/anyproxy": "^4.1.2",

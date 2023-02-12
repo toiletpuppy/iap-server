@@ -16,8 +16,12 @@ if (!utils.certMgr.ifRootCAFileExists()) {
   });
 }
 
-// Initialize server
-export const initializeServer = () => {
+/**
+ * Initialize server
+ * @date 2023-02-12
+ * @returns {ProxyServer}
+ */
+export const initializeServer = (): ProxyServer => {
   const proxyServer = new ProxyServer({
     port: PROXY_PORT,
     rule: {
@@ -27,7 +31,7 @@ export const initializeServer = () => {
       enable: true,
       webPort: <number>WEB_INTERFACE_PORT,
     },
-    silent: false,
+    silent: true,
     forceProxyHttps: true,
   });
 
@@ -39,5 +43,5 @@ export const initializeServer = () => {
     console.log("Proxy Server error:", error);
   });
 
-  return { proxyServer };
+  return proxyServer;
 };

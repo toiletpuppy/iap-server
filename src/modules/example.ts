@@ -1,8 +1,9 @@
-// example module
+import { Body } from "../types";
+
 export default {
-  url: "https://httpbin.org/user-agent$",
-  rewrite: (body: Body) => ({
-    ...body,
-    test: "rewrite test",
-  }),
+  pattern: /^https:\/\/httpbin.org\/user-agent$/,
+  rewrite: (body: Body) => {
+    body = { ...body, test: "rewrite test" };
+    return body;
+  },
 };

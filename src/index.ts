@@ -1,8 +1,13 @@
 import { initializeServer } from "./app";
 
-const main = async () => {
+/**
+ * Main function
+ * @date 2023-02-12
+ * @returns {void}
+ */
+const main = (): void => {
   try {
-    const { proxyServer } = initializeServer();
+    const proxyServer = initializeServer();
     // Start server
     proxyServer.start();
   } catch (error) {
