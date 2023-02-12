@@ -28,6 +28,7 @@ export const initializeServer = () => {
       webPort: <number>WEB_INTERFACE_PORT,
     },
     silent: false,
+    forceProxyHttps: true,
   });
 
   proxyServer.on("ready", () => {
