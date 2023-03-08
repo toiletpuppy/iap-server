@@ -19,6 +19,11 @@ export const bufferToObject = (buffer: Buffer): Object | Buffer => {
  * @returns {Buffer}
  */
 export const objectToBuffer = (object: Object): Buffer => {
-  if (Buffer.isBuffer(object)) return object;
-  return Buffer.from(JSON.stringify(object));
+  try {
+    if (Buffer.isBuffer(object)) return object;
+
+    return Buffer.from(JSON.stringify(object));
+  } catch {
+    return Buffer.from("");
+  }
 };

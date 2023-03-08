@@ -11,7 +11,7 @@ const main = (): void => {
     // Start server
     proxyServer.start();
   } catch {
-    console.error("ERROR");
+    // do nothing
   }
 };
 

@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 /**
  * deepCopy
  * @date 2023-02-13
@@ -14,7 +16,7 @@ export const deepCopy = (data: any, hash: any = new WeakMap()): any => {
   }
   const newData: any = {};
   const dataKeys = Object.keys(data);
-  dataKeys.forEach((value) => {
+  _.forEach(dataKeys, (value) => {
     const currentDataValue = data[value];
     if (typeof currentDataValue !== "object" || currentDataValue === null) {
       newData[value] = currentDataValue;

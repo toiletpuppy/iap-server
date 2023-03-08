@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { Module } from "../types";
 import { bufferToObject, objectToBuffer } from "../utils";
+import _ from "lodash";
 
 const files = fs.readdirSync(__dirname);
 const modules: Module[] = [];
@@ -24,7 +25,7 @@ const loadModule = async (file: string): Promise<void> => {
 };
 
 // load all modules from this folder
-files.forEach(loadModule);
+_.forEach(files, loadModule);
 
 /**
  * Process response body
@@ -36,21 +37,23 @@ files.forEach(loadModule);
 export const beforeSendResponse = async (
   requestDetail: RequestDetail,
   responseDetail: ResponseDetail
-) => {
+): Promise<ResponseDetail> => {
   try {
-    const { response } = responseDetail;
-    const matchedModule = modules.find((module: Module) =>
+    const matchedModule = _.find(modules, (module: Module) =>
       module.pattern.test(requestDetail.url)
     );
 
     if (matchedModule) {
-      response.body = objectToBuffer(
-        matchedModule.rewrite(bufferToObject(response.body), requestDetail)
+      responseDetail.response.body = objectToBuffer(
+        matchedModule.rewrite(
+          bufferToObject(responseDetail.response.body),
+          requestDetail
+        )
       );
     }
-
-    return { response };
   } catch {
-    console.error("ERROR");
+    // do nothing
   }
+
+  return responseDetail;
 };
