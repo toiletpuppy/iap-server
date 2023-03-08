@@ -10,8 +10,8 @@ const main = (): void => {
     const proxyServer = initializeServer();
     // Start server
     proxyServer.start();
-  } catch (error) {
-    console.error(error);
+  } catch {
+    console.error("ERROR");
   }
 };
 

@@ -1,4 +1,4 @@
-import { Response, RequestDetail, ResponseDetail } from "anyproxy";
+import { RequestDetail, ResponseDetail } from "anyproxy";
 import fs from "fs";
 import path from "path";
 import { Module } from "../types";
@@ -31,22 +31,26 @@ files.forEach(loadModule);
  * @date 2023-02-12
  * @param {RequestDetail} requestDetail
  * @param {ResponseDetail} responseDetail
- * @returns {Response}
+ * @returns
  */
 export const beforeSendResponse = async (
   requestDetail: RequestDetail,
   responseDetail: ResponseDetail
-): Promise<{ response: Response }> => {
-  const { response } = responseDetail;
-  const matchedModule = modules.find((module: Module) =>
-    module.pattern.test(requestDetail.url)
-  );
-
-  if (matchedModule) {
-    response.body = objectToBuffer(
-      matchedModule.rewrite(bufferToObject(response.body), requestDetail)
+) => {
+  try {
+    const { response } = responseDetail;
+    const matchedModule = modules.find((module: Module) =>
+      module.pattern.test(requestDetail.url)
     );
-  }
 
-  return { response };
+    if (matchedModule) {
+      response.body = objectToBuffer(
+        matchedModule.rewrite(bufferToObject(response.body), requestDetail)
+      );
+    }
+
+    return { response };
+  } catch {
+    console.error("ERROR");
+  }
 };
