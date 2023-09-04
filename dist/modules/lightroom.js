@@ -3,8 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     pattern: /^https:\/\/photos.adobe.io\/v\d\/accounts/,
     rewrite: (body) => {
-        body = body.toString().replace(/while.{7}\n/, "");
-        body = JSON.parse(body);
+        if (typeof body !== 'object') {
+            body = body.toString().replace(/while.{7}\n/, "");
+            body = JSON.parse(body);
+        }
         body.entitlement.status = "subscriber";
         body.current_subs = {
             product_id: "lightroom",
