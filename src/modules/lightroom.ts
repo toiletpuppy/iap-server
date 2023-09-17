@@ -42,6 +42,7 @@ export default {
         end: "2023-10-20T06:31:49.315459Z",
       },
     };
+    delete body.entitlement.current_subs.deletion_date;
     body.avatar.placeholder = true;
 
     return body;
