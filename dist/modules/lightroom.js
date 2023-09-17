@@ -35,6 +35,10 @@ exports.default = {
                     display_limit: 1099511627776,
                     warn: 992137445376,
                 },
+                trial: {
+                    start: "2023-09-15T06:31:49.315459Z",
+                    end: "2023-10-20T06:31:49.315459Z",
+                },
             },
         };
         body.avatar.placeholder = true;
